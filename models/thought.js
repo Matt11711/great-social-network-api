@@ -6,9 +6,8 @@ const dateFormat = require("../utils/dateFormat");
 // Sets up the reaction schema
 const reactionSchema = new Schema(
   {
-//    the id is going to be an object id data type
+    //    the id is going to be an object id data type
     reactionId: {
-  
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
@@ -22,7 +21,7 @@ const reactionSchema = new Schema(
     username: {
       type: String,
       required: true,
-        },
+    },
     // uses a getter function to format the date, and it gives the time that the reaction was created at.
     createdAt: {
       type: Date,
@@ -41,22 +40,21 @@ const ThoughtSchema = new Schema(
       type: String,
       required: "Please input thought text!",
 
-   
       minlength: 1,
       maxlength: 280,
     },
-// same as above createdAt field
-        createdAt: {
+    // same as above createdAt field
+    createdAt: {
       type: Date,
       default: Date.now,
       get: (createdAtVal) => dateFormat(createdAtVal),
     },
-//  required string data type
-        username: {
+    //  required string data type
+    username: {
       type: String,
       required: "Please provide a username!",
-        },
-        // this pulls the reactions as a sub document.
+    },
+    // this pulls the reactions as a sub document.
     reactions: [reactionSchema],
   },
   opts
@@ -67,6 +65,6 @@ ThoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const thought = model("Thought", ThoughtSchema);
+const thought = model("thought", ThoughtSchema);
 
 module.exports = thought;
