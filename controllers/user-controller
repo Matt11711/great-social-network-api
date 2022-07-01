@@ -1,7 +1,7 @@
-const { User, Thought } = require("./models");
+const { User, Thought } = require("../models");
 
 const userController = {
-  createUser(body, res) {
+  createUser({ body }, res) {
     // Create the User and then make sure it is a valid user
     User.create(body)
       .then((dbUserInfo) => {
@@ -100,7 +100,8 @@ const userController = {
   deleteFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
-      { $pull: { friends: params.friendId } }
+        { $pull: { friends: params.friendId } },
+      {new: true}
     )
       .then((dbUserInfo) => {
         if (!dbUserInfo) {
